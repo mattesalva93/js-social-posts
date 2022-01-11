@@ -56,6 +56,8 @@ const posts = [
     }
 ];
 
+
+
 function generaPost(mioArray){
     const creaPost = document.querySelector(".posts-list");
     creaPost.innerHTML += `
@@ -67,7 +69,7 @@ function generaPost(mioArray){
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${mioArray[i].author.name}</div>
-                        <div class="post-meta__time">${mioArray[i].created}</div>
+                        <div class="post-meta__time">${reverseString(mioArray[i].created)}</div>
                     </div>                    
                 </div>
             </div>
@@ -84,7 +86,7 @@ function generaPost(mioArray){
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-${i}" class="js-likes-counter">${mioArray[i].likes}</b> persone
+                        Piace a <b id="like-counter-${mioArray[i].id}" class="js-likes-counter">${mioArray[i].likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -95,26 +97,39 @@ function generaPost(mioArray){
 function aggiungiLike(){
     const tastoLike = document.getElementsByClassName("js-like-button");
     console.log(tastoLike);
+    let arraySalvaID = [];
 
     for (let i = 0; i < tastoLike.length; i++){
         tastoLike[i].addEventListener("click", function(){
             this.classList.add("like-button--liked");
-            let contatoreLike = document.getElementById("like-counter-" + i).textContent;
+            let contatoreLike = document.getElementById("like-counter-" + posts[i].id).textContent;
             contatoreLike++;
-            document.getElementById("like-counter-" + i).textContent = contatoreLike;
+            document.getElementById("like-counter-" + posts[i].id).textContent = contatoreLike;
             console.log(contatoreLike); 
+            arraySalvaID.push(posts[i].id);
+            console.log(arraySalvaID);
         })
     }
 
 }
-
+function reverseString(str) {
+    let splitString = str.split("-");
+  
+    let reverseArray = splitString.reverse();
+  
+    let joinArray = reverseArray.join("-");
+    return joinArray;
+  }
 
 
 for (i = 0; i < posts.length; i++){
+
     generaPost(posts);
 }
 
 aggiungiLike();
+
+
  
 
 
