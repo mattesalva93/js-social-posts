@@ -60,12 +60,45 @@ const posts = [
 
 function generaPost(mioArray){
     const creaPost = document.querySelector(".posts-list");
-    creaPost.innerHTML += `
+    if (mioArray[i].author.image == null){
+        creaPost.innerHTML += `
+        <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">                    
+                        <div class="post-meta__icon">
+                        <span> ${onlyCapitalLetters(mioArray[i].author.name)} </span>                 
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${mioArray[i].author.name}</div>
+                            <div class="post-meta__time">${reverseString(mioArray[i].created)}</div>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="post__text">${mioArray[i].content}</div>
+                <div class="post__image">
+                    <img src="${mioArray[i].media}" alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button js-like-button" data-postid="1">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-${mioArray[i].id}" class="js-likes-counter">${mioArray[i].likes}</b> persone
+                        </div>
+                    </div> 
+                </div>            
+            </div>
+        `
+    }else{creaPost.innerHTML += `
     <div class="post">
             <div class="post__header">
                 <div class="post-meta">                    
                     <div class="post-meta__icon">
-                        <img class="profile-pic" src="${mioArray[i].author.image}" alt="Phil Mangione">                    
+                        <img class="profile-pic" src="${mioArray[i].author.image}" alt="${mioArray[i].author.name}">                    
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${mioArray[i].author.name}</div>
@@ -92,6 +125,8 @@ function generaPost(mioArray){
             </div>            
         </div>
     `
+    }
+
 }
 
 function aggiungiLike(){
@@ -119,7 +154,18 @@ function reverseString(str) {
   
     let joinArray = reverseArray.join("-");
     return joinArray;
-  }
+}
+
+function onlyCapitalLetters (str) { 
+    let newStr = "";
+  
+    for (let i = 0; i < str.length; i++) {
+        if (str[i].match(/[A-Z]/)) {
+            newStr += str[i];
+        }
+     }
+     return newStr;
+}
 
 
 for (i = 0; i < posts.length; i++){
