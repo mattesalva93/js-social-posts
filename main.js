@@ -84,7 +84,7 @@ function generaPost(mioArray){
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${mioArray[i].likes}</b> persone
+                        Piace a <b id="like-counter-${i}" class="js-likes-counter">${mioArray[i].likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -99,11 +99,13 @@ function aggiungiLike(){
     for (let i = 0; i < tastoLike.length; i++){
         tastoLike[i].addEventListener("click", function(){
             this.classList.add("like-button--liked");
-             
-
+            let contatoreLike = document.getElementById("like-counter-" + i).textContent;
+            contatoreLike++;
+            document.getElementById("like-counter-" + i).textContent = contatoreLike;
+            console.log(contatoreLike); 
         })
-
     }
+
 }
 
 
