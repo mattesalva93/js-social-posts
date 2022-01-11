@@ -136,13 +136,23 @@ function aggiungiLike(){
 
     for (let i = 0; i < tastoLike.length; i++){
         tastoLike[i].addEventListener("click", function(){
+            if ( !arraySalvaID.includes(posts[i].id) ){
+
             this.classList.add("like-button--liked");
             let contatoreLike = document.getElementById("like-counter-" + posts[i].id).textContent;
             contatoreLike++;
             document.getElementById("like-counter-" + posts[i].id).textContent = contatoreLike;
-            console.log(contatoreLike); 
             arraySalvaID.push(posts[i].id);
-            console.log(arraySalvaID);
+
+            }else{
+
+            this.classList.remove("like-button--liked");
+            let contatoreLike = document.getElementById("like-counter-" + posts[i].id).textContent;
+            contatoreLike--;
+            document.getElementById("like-counter-" + posts[i].id).textContent = contatoreLike;
+            arraySalvaID.pop(posts[i].id);
+
+            }
         })
     }
 
