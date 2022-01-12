@@ -66,7 +66,7 @@ function generaPost(mioArray){
                 <div class="post__header">
                     <div class="post-meta">                    
                         <div class="post-meta__icon">
-                        <span> ${onlyCapitalLetters(mioArray[i].author.name)} </span>                 
+                        <div class="profile-pic-default"> <span> ${trovaIniziali(mioArray[i].author.name)} </span> </div>                 
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${mioArray[i].author.name}</div>
@@ -113,7 +113,7 @@ function generaPost(mioArray){
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button js-like-button" data-postid="1">
+                        <a class="like-button js-like-button" href="#" data-postid="${mioArray[i].id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -135,7 +135,8 @@ function aggiungiLike(){
     let arraySalvaID = [];
 
     for (let i = 0; i < tastoLike.length; i++){
-        tastoLike[i].addEventListener("click", function(){
+        tastoLike[i].addEventListener("click", function(e){
+            e.preventDefault();
             if ( !arraySalvaID.includes(posts[i].id) ){
 
             this.classList.add("like-button--liked");
@@ -157,6 +158,7 @@ function aggiungiLike(){
     }
 
 }
+
 function reverseString(str) {
     let splitString = str.split("-");
   
@@ -177,6 +179,14 @@ function onlyCapitalLetters (str) {
      return newStr;
 }
 
+function trovaIniziali (autore){
+    let partiNome = autore.split(" ");
+    let iniziali = "";
+    for (let i=0; i<partiNome.length; i++){
+        iniziali += partiNome[i][0];
+    }
+    return iniziali;
+}
 
 for (i = 0; i < posts.length; i++){
 
@@ -184,8 +194,3 @@ for (i = 0; i < posts.length; i++){
 }
 
 aggiungiLike();
-
-
- 
-
-
